@@ -1,0 +1,23 @@
+.l-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 70px;
+  background-color: rgba(255, 255, 255, .6);
+  z-index: 101;
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  @include mq(md) {
+
+  }
+
+  @include mq(lg) {
+
+  }
+}

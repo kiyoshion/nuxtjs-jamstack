@@ -1,0 +1,10 @@
+$bps: (
+  'md': 'screen and (min-width: 768px)',
+  'lg': 'screen and (min-width: 1024px)'
+);
+
+@mixin mq($bp: md) {
+  @media #{map-get($bps, $bp)} {
+    @content;
+  }
+}
