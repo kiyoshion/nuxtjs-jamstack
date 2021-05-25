@@ -5,6 +5,9 @@
   margin-bottom: 2rem;
   padding: 2rem;
   &__item {
+    a {
+      color: $cBlack;
+    }
     &--3 {
       display: none;
     }

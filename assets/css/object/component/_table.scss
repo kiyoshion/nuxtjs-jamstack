@@ -1,0 +1,27 @@
+@import '../utility/variables';
+
+.c-table {
+  margin: 2rem auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead {
+    tr {
+      background-color: $cBlack;
+      color: $cWhite;
+    }
+  }
+  tr {
+    &:nth-child(even) {
+      background-color: $cLightGray;
+    }
+  }
+  th,
+  td {
+    border-collapse: collapse;
+    border: 1px solid $cDarkGray;
+    padding: .5rem 1rem;
+    text-align: left;
+  }
+}

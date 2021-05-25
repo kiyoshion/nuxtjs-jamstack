@@ -15,10 +15,6 @@ Docker勉強するなら「<a href="https://www.udemy.com/course/aidocker/" targ
 2. ホスティグの移動が楽になる
 3. テスト環境と本番環境の構築が楽になる
 
-## Linuxの基礎
-
-### DockerとはLinuxのコンテナ技術
-
 ## Dockerを使ってみる
 
 ```bash
@@ -67,11 +63,15 @@ detach: ctrl+p+q
 
 #### exitとdetachの違い
 
+<div class="c-table">
+
 |command|note|
 |---|---|
 |exit|プロセスをころす|
 |detach|プロセスを残す|
 |attach|もとのプロセスに入る|
+
+</div>
 
 ```bash
 docker attach [container]
@@ -117,18 +117,24 @@ docker pull [image]
 dcoker run -it [image] bash
 ```
 
-## Dockerの動きをもう少し詳細に理解する
+## Dockerの動きを理解する
 
 必要な環境を構築するには、どんなcontaierが必要なのか？を理解する。
 
 ### docker runは何をしているのか
 
-dockerのcontainerをcreateしている。
+dockerのcontainerをcreateとstartしている。
 
 run = create + start
 
-create -> containerを起動してデフォルトコマンドを実行してexitする
-start ->
+<div class="c-table">
+
+|command|note|
+|---|---|
+|create|containerを作る|
+|start|起動してデフォルトコマンドを実行してexitする|
+
+</div>
 
 ```bash
 docker run [image]
@@ -146,8 +152,14 @@ docker ps -a
 docker run -it ubuntu bash
 ```
 
--i: インプット可能 Hostからcontainerに入力チャネルを開く
--t: 表示が綺麗になる prettyにする
+<div class="c-table">
+
+|option|note|
+|---|---|
+|-i|インプット。Hostからcontainerに入力チャネルを開く。|
+|-t|表示が綺麗になる。prettyになる。|
+
+</div>
 
 ### コンテナの削除
 
@@ -176,5 +188,57 @@ docker run -d [image] # コンテナをバックグラウンドで動かす
 docker run --rm [image] # コンテナをexit後に削除する
 ```
 
+## Dockerfile
+
+### Dockerfileを作る
+
+```dockerfile
+FROM ubuntu:latest
+RUN touch test
+```
+
+### DockerfileからDocker imageを作る
+
+一般的にDockerfileからDocker imageを作る。どんなコマンドを実行したかなど、Dockerfileの中身を見ればわかる。
+
+```bash
+docker build [directory]
+docker images
+docker build -t [name] [directory]
+```
+
+## Dockerfileの書き方
+
+Docker imageのLayerを最小限にする。
+
+1. Layerを作るのはRUN, COPY, ADDの3つ
+2. コマンドを&&でつなげる
+3. バックスラッシュで\改行する
+
+Ubuntuでパッケージ管理ツール(apt-get or apt)を最新版にして、パッケージをインストールしていく。
+
+```bash
+apt update
+apt install [pakage]
+```
+
+最終的にRUNは1行に収める。編集中はキャッシュを使う。
+
+```dockerfile
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y \
+  curl \
+  nginx
+```
+
+<div class="c-table">
+
+|instruction|note|
+|---|---|
+|FROM|ベースとなるイメージを指定する。|
+|RUN|RUN毎にLayerが作られる。|
+|CMD|コンテナのデフォルトのコマンドを指定する。基本的にDockerfileの最後に書く。Layerは作られない。|
+
+</div>
 
 ## CLCIとはなにか？
