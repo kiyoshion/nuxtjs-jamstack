@@ -1,4 +1,10 @@
-# JAMStack with Nuxt.js
+# JAMstack with Nuxt.js
+
+@nuxt/contentを使ってMarkdownなTypeScriptに静的ブログを開発。
+
+See document @nuxt/content.
+
+<a href="https://content.nuxtjs.org/ja/" target="_balnk">Contentとは</a>
 
 
 ## Build Setup
@@ -19,3 +25,18 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Setup @nuxt/content
+
+```bash
+npm install @nuxt/content
+```
+
+```js:nuxt.config.js
+{
+  modules: [
+    '@nuxt/content'
+  ],
+}
+```
+

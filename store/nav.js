@@ -7,8 +7,8 @@ export const getters = {
 }
 
 export const mutations = {
-  setIsMenu (state) {
-    state.isMenu = !state.isMenu
+  setIsMenu (state, status) {
+    state.isMenu = status
   }
 }
 

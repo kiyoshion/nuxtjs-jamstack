@@ -20,7 +20,7 @@ export default {
       { hid: 'og:url', property: 'og:url', content: 'https://github.com/kiyoshion/nuxtjs-ssg' },
       { hid: 'og:title', property: 'og:title', content: 'nuxtjs-ssg' },
       { hid: 'og:description', property: 'og:description', content: 'This is Nuxt.js template.' },
-      { hid: 'og:image', property: 'og:image', content: 'https://example.com/images/ogp/common.jpg' },
+      { hid: 'og:image', property: 'og:image', content: 'https://example.com/images/ogp/common.jpg' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -28,7 +28,7 @@ export default {
   },
 
   router: {
-    middleware: 'update-page',
+    middleware: 'update-page'
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -52,7 +52,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxt/content'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -60,10 +61,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extractCSS: true,
+    extractCSS: true
   },
 
   generate: {
-    fallback: true,
+    fallback: true
   }
 }

@@ -10,8 +10,11 @@ export default {
   data () {
     return {
       links: [
-        { name: 'TOP', val: '/' },
-        { name: 'サイトについて', val: '/about' }
+        { name: 'Home', val: '/' },
+        { name: 'Work', val: '/work' },
+        { name: 'Dev', val: '/dev' },
+        { name: 'Blog', val: '/blog' },
+        { name: 'About', val: '/about' }
       ]
     }
   },

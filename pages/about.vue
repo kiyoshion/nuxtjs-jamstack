@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Meta from '../assets/js/mixin/meta';
+import Meta from '../assets/js/mixin/meta'
 
 export default {
   mixins: [Meta],
@@ -14,7 +14,7 @@ export default {
         description: 'about page',
         type: 'article',
         url: '',
-        image: '',
+        image: ''
       }
     }
   }
