@@ -1,0 +1,12 @@
+@import '../utility/variables';
+
+.p-toc {
+  background-color: $cLightGray;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  &__item {
+    &--3 {
+      display: none;
+    }
+  }
+}

@@ -12,6 +12,7 @@
   transition: all .4s ease;
   display: flex;
   align-items: center;
+  overflow: hidden;
   &.is-active {
     opacity: 1;
     visibility: visible;

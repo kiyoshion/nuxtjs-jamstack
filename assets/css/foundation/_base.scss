@@ -1,9 +1,19 @@
 @import '../object/utility/variables';
 @import 'mixin';
 
-a {
+body {
+  width: 100%;
   color: $cBlack;
+  overflow-x: hidden;
+}
+
+a {
+  color: $cLink;
   text-decoration: none;
+}
+
+p {
+  margin-bottom: 1rem;
 }
 
 ul,
@@ -14,4 +24,24 @@ ol {
 
 ul {
   list-style: none;
+}
+
+ol {
+  padding-left: 1.25rem;
+}
+
+h1 {
+  margin: 2rem 0;
+}
+
+h2 {
+  margin: 1.5rem 0;
+}
+
+h3 {
+  margin: 1.25rem 0;
+}
+
+h4 {
+  margin: 1rem 0;
 }
