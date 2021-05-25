@@ -1,8 +1,9 @@
 <template lang="pug">
-  nav.l-nav(:class="{ 'is-active': isMenu }")
-    ul.l-nav__list
-      li.l-nav__item(v-for="(link, i) in links" :key="i")
-        nuxt-link.l-nav__link(:to="link.val") {{ link.name }}
+  nav.l-nav(:class="{ 'is-active': isMenu }" @click="toggleMenu")
+    .l-nav__inner
+      ul.l-nav__list
+        li.l-nav__item(v-for="(link, i) in links" :key="i")
+          nuxt-link.l-nav__link(:to="link.val") {{ link.name }}
 </template>
 
 <script>
@@ -21,6 +22,11 @@ export default {
   computed: {
     isMenu () {
       return this.$store.state.nav.isMenu
+    }
+  },
+  methods: {
+    toggleMenu () {
+      this.$store.dispatch('nav/isMenu', false)
     }
   }
 }

@@ -5,8 +5,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'nuxtjs-ssg',
-    titleTemplate: '%s - nuxtjs-ssg',
+    title: 'K.O',
+    titleTemplate: '%s - K.O',
     htmlAttrs: {
       lang: 'ja',
       prefix: 'og: http://ogp.me/ns#'

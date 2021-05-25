@@ -2,7 +2,7 @@
   header.l-header
     .l-header__inner
       .l-header__logo
-        nuxt-link(to="/") LOGO
+        nuxt-link(to="/") K.O
       .l-header__menu
         .c-btn__menu(@click="toggleMenu" :class="{ 'is-active': isMenu }")
           span

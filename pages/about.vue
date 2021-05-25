@@ -1,6 +1,6 @@
 <template lang="pug">
   .l-container
-    h1.p-ttl 小野田のポートフォリオとブログ
+    h1.p-ttl Kiyoshi Onodaのポートフォリオとブログと別冊。
 </template>
 
 <script>

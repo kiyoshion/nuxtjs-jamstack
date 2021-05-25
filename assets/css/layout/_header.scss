@@ -1,3 +1,5 @@
+@import '../object/utility/_variables';
+
 .l-header {
   position: fixed;
   top: 0;
@@ -11,6 +13,12 @@
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
+  }
+  &__logo {
+    margin-left: 1rem;
+    a {
+      color: $cBlack;
+    }
   }
 
   @include mq(md) {

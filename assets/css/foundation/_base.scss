@@ -4,6 +4,8 @@
 body {
   width: 100%;
   color: $cBlack;
+  letter-spacing: .025rem;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
@@ -13,7 +15,8 @@ a {
 }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  text-align: justify;
 }
 
 ul,
