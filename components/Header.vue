@@ -4,7 +4,7 @@
       .l-header__logo
         nuxt-link(to="/") LOGO
       .l-header__menu
-        .c-btn__menu(@click="toggleMenu")
+        .c-btn__menu(@click="toggleMenu" :class="{ 'is-active': isMenu }")
           span
           span
           span
@@ -12,6 +12,11 @@
 
 <script>
 export default {
+  computed: {
+    isMenu () {
+      return this.$store.state.nav.isMenu
+    }
+  },
   methods: {
     toggleMenu () {
       this.$store.dispatch('nav/isMenu', !this.$store.state.nav.isMenu)

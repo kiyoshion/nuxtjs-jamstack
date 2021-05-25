@@ -1,5 +1,6 @@
 <template lang="pug">
-  .p-about
+  .l-container
+    h1.p-ttl 小野田のポートフォリオとブログ
 </template>
 
 <script>
