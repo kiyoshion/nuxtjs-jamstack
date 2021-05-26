@@ -9,7 +9,7 @@
   opacity: 0;
   visibility: hidden;
   transform: translateX(100%);
-  transition: all 1s cubic-bezier(0, 0, 0.24, 0.99);
+  transition: all .5s cubic-bezier(0, 0, 0.24, 0.99);
   overflow: hidden;
   cursor: pointer;
   &.is-active {

@@ -2,11 +2,9 @@
 @import 'mixin';
 
 body {
-  width: 100%;
   color: $cBlack;
   letter-spacing: .025rem;
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 a {
@@ -47,4 +45,22 @@ h3 {
 
 h4 {
   margin: 1rem 0;
+}
+
+pre[class*="language-"] {
+  margin: 2rem 0;
+}
+
+.nuxt-content-highlight {
+  position: relative;
+  .filename {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: .8rem;
+    background-color: $cBlack;
+    color: $cWhite;
+    padding: .25rem .5rem;
+    z-index: 1;
+  }
 }
