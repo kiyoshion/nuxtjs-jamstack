@@ -537,4 +537,157 @@ vim config/routes.rb
 root 'products#index'
 ```
 
-## CICDとはなにか？
+## CICDとは
+
+Continuous Integration/Continuous Delivery(継続的インテグレーション/継続的デリバリー)
+
+### Railsのテストを実行する
+
+```bash[bash]
+docker-compose up exec web bash
+rails test
+```
+
+### TravisCIを設定する
+
+アカウントの作成。
+
+### .travis.ymlを作成する
+
+```yml[.travis.yml]
+sudo: required
+
+services: docker
+
+before_install:
+  - docker-compose up --build -d
+
+script:
+  - docker-compose exec --env 'RAILS_ENV=test' web rails db:create
+  - docker-compose exec --env 'RAILS_ENV=test' web rails db:migrate
+  - docker-compose exec --env 'RAILS_ENV=test' web rails test
+```
+
+docker-compose.ymlのenvironmentを編集する。
+
+```yml[docker-compose.yml]
+environment:
+  - 'POSTGRES_HOST_AUTH_METHOD=trust'
+```
+
+### Travis CIをビルドする
+
+```bash[bash]
+git add .
+git commit -m "Update travis and compose"
+git push origin master
+```
+
+### herokuの設定
+
+DBはHerokuのDBを使う。アプリは自作のcontainerを使う。
+
+```yml[config/database.yml]
+production:
+  url: <%= ENV['DATABASE_URL] %>
+# 以下をコメントアウト
+# production:
+```
+
+Heroku > Settings > Config Vars で以下を設定する。master.keyの値を設定する。
+
+```bash
+SECRET_KEY_BASE XXXXXXXXXXXXXXXXXXXXXX
+```
+
+Heroku > Deploy > Connect to GitHub　を設定する。対象のリポジトリを選択して、「Wait for CI to pass before deploy」にチェックを入れる。
+
+### Travis CIにHerokuにデプロイするための記述をする
+
+1. .travis.ymlにデプロイ用の記述を追加
+2. MacにHerokuをインストールしてtokenを取得
+3. Travis CIとHerokuに環境変数を設定
+4. 本番環境用Dockerfile.prodを作成
+
+#### .travis.ymlを編集する
+
+1. HerokuのDockerレジストリにログイン
+2. 本番環境用のDockerfileをビルド(イメージ作成)
+3. HerokuのDockerレジストリに本番環境用のイメージをpush
+4. アプリ起動
+
+```yml[.travis.yml]
+sudo: required
+
+services: docker
+
+before_install:
+  - docker-compose up --build -d
+  - docker login -u "$HEROKU_USERNAME" -p "$HEROKU_API_KEY" registry.heroku.com
+
+script:
+  - docker-compose exec --env 'RAILS_ENV=test' web rails db:create
+  - docker-compose exec --env 'RAILS_ENV=test' web rails db:migrate
+  - docker-compose exec --env 'RAILS_ENV=test' web rails test
+
+deploy:
+  provider: script
+  script:
+    docker build -t registry.heroku.com/$HEROKU_APP_NAME/web -f Dockerfile.prod .;
+    docker push registry.heroku.com/$HEROKU_APP_NAME/web;
+    heroku run --app $HEROKU_APP_NAME rails db:migrate;
+  on:
+    branch: master
+```
+#### 環境変数を設定する
+
+<a href="" target="_blank">Travis CI</a>のサイトから環境変数を設定する。
+
+Travis CI > more options > Settings > Environment Variables
+
+<div class="c-table">
+
+|PATH|value|
+|---|---|
+|HEROKU_USERNAME|'_'|
+|HEROKU_API_KEY|$heroku authorizations:createの出力結果のToken部分|
+|HEROKU_APP_NAME|'<name>-product-register'|
+
+</div>
+
+Heroku > Settings > Config Vars　で以下を追加。DATABASE_PASSWORDがないとエラーになるため。
+
+|PATH|value|
+|---|---|
+|DATABASE_PASSWORD|'postgres'|
+
+#### 本番環境用のDockerfile.prodを作成する
+
+```dockerfile[Dockerfile.prod]
+FROM ruby:2.5
+RUN apt-get update && apt-get install -y
+    build-essential \
+    libpq-dev \
+    nodejs \
+    postgresql-client \
+    yarn
+
+WORKDIR /product-register
+COPY Gemfile Gemfile.lock /product-register/
+COPY . .
+CMD ["rails", "s"]
+```
+
+### GitとCICDを使った開発手順
+
+1. featureブランチを作成
+2. コードを変更
+3. 変更したファイルをGitのstageingにあげる
+4. 変更をコミットする
+5. featureブランチにpush
+6. プルリクエストを作成
+7. プルリクエストをmerge
+8. TravisCIのビルドが走る
+9. Herokuに新しいアプリがビルドされる
+
+
